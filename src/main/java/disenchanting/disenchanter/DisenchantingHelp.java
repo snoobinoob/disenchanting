@@ -3,6 +3,7 @@ package disenchanting.disenchanter;
 import necesse.engine.util.GameMath;
 import necesse.gfx.forms.presets.containerComponent.object.ProcessingHelp;
 import necesse.gfx.gameTooltips.GameTooltips;
+import necesse.gfx.gameTooltips.ListGameTooltips;
 import necesse.inventory.InventoryItem;
 
 public class DisenchantingHelp extends ProcessingHelp {
@@ -18,8 +19,12 @@ public class DisenchantingHelp extends ProcessingHelp {
 
     @Override
     public GameTooltips getCurrentRecipeTooltip() {
-        // TODO Auto-generated method stub
-        return null;
+        if (!objectEntity.isProcessing())
+            return null;
+        ListGameTooltips tooltips = new ListGameTooltips();
+        tooltips.add(objectEntity.getOutputItem().getTooltip(null));
+
+        return tooltips;
     }
 
     @Override
@@ -30,6 +35,8 @@ public class DisenchantingHelp extends ProcessingHelp {
             return ghostGearItems[index];
         }
         if (slot == 1)
+            return new InventoryItem("enchantingscroll");
+        if (slot == 2 && isProcessing())
             return new InventoryItem("enchantingscroll");
 
         return null;
@@ -42,7 +49,6 @@ public class DisenchantingHelp extends ProcessingHelp {
 
     @Override
     public GameTooltips getTooltip(int slot) {
-        // TODO Auto-generated method stub
         return null;
     }
 

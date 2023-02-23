@@ -8,6 +8,10 @@ import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.network.PacketReader;
 import necesse.engine.registries.ContainerRegistry;
 import necesse.engine.registries.ObjectRegistry;
+import necesse.engine.registries.RecipeTechRegistry;
+import necesse.inventory.recipe.Ingredient;
+import necesse.inventory.recipe.Recipe;
+import necesse.inventory.recipe.Recipes;
 
 @ModEntry
 public class Disenchanting {
@@ -29,5 +33,13 @@ public class Disenchanting {
     public ModSettings initSettings() {
         settings = new Settings();
         return settings;
+    }
+
+    public void postInit() {
+        Recipes.registerModRecipe(
+                new Recipe("disenchanter", 1, RecipeTechRegistry.WORKSTATION,
+                        new Ingredient[] {new Ingredient("anylog", 10),
+                                new Ingredient("anystone", 10), new Ingredient("voidshard", 2),})
+                                        .showAfter("alchemytable"));
     }
 }

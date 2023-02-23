@@ -76,7 +76,7 @@ public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
         return false;
     }
 
-    private InventoryItem getOutputItem() {
+    public InventoryItem getOutputItem() {
         InventoryItem out = inventory.getItem(1).copy();
         int enchantId = scroll.getEnchantmentID(inventory.getItem(0));
         scroll.setEnchantment(out, enchantId);
