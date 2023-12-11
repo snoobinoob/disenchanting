@@ -3,6 +3,7 @@ package disenchanting.form;
 import disenchanting.disenchanter.DisenchanterContainer;
 import disenchanting.disenchanter.DisenchanterObjectEntity;
 import necesse.engine.network.client.Client;
+import necesse.gfx.forms.components.FormFlow;
 import necesse.gfx.forms.components.containerSlot.FormContainerProcessingRecipeSlot;
 import necesse.gfx.forms.components.containerSlot.FormContainerSlot;
 import necesse.gfx.forms.presets.containerComponent.object.FormProcessingProgressArrow;
@@ -13,19 +14,10 @@ public class DisenchanterContainerForm extends OEInventoryContainerForm<Disencha
 
     public DisenchanterContainerForm(Client client, DisenchanterContainer container) {
         super(client, container);
-        int inputSlots = container.objectEntity.inputSlots;
-        int outputSlots = slots.length - inputSlots;
-        this.inventoryForm.setHeight(
-                Math.max(getContainerHeight(inputSlots, 4), getContainerHeight(outputSlots, 4)));
-        this.inventoryForm.addComponent(
-                new FormProcessingProgressArrow(this.inventoryForm.getWidth() / 2 - 16,
-                        30 + (this.inventoryForm.getHeight() - 30) / 2 - 16,
-                        container.objectEntity.getProcessingHelp()));
-
     }
 
     @Override
-    protected void addSlots() {
+    protected void addSlots(FormFlow flow) {
         slots = new FormContainerSlot[container.INVENTORY_END - container.INVENTORY_START + 1];
         DisenchanterObjectEntity processingOE = container.objectEntity;
         int inputSlots = processingOE.inputSlots;
@@ -45,5 +37,10 @@ public class DisenchanterContainerForm extends OEInventoryContainerForm<Disencha
             this.slots[i] = this.inventoryForm.addComponent(new FormContainerProcessingRecipeSlot(
                     this.client, slotIndex, x, y + 34, processingHelp));
         }
+        this.inventoryForm.addComponent(
+                new FormProcessingProgressArrow(this.inventoryForm.getWidth() / 2 - 16,
+                        38,
+                        container.objectEntity.getProcessingHelp()));
+        flow.next(40);
     }
 }
