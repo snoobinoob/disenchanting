@@ -23,23 +23,22 @@ public class DisenchanterContainerForm extends OEInventoryContainerForm<Disencha
         int inputSlots = processingOE.inputSlots;
         ProcessingHelp processingHelp = processingOE.getProcessingHelp();
         int centerWidth = 40;
-        for (int i = 0; i < this.slots.length; i++) {
+        for (int i = 0; i < slots.length; i++) {
             int x, y, slotIndex = i + container.INVENTORY_START;
             if (i < inputSlots) {
                 int sideWidth = inputSlots * 40;
-                x = this.inventoryForm.getWidth() / 2 - sideWidth - centerWidth / 2 + i % 4 * 40;
+                x = inventoryForm.getWidth() / 2 - sideWidth - centerWidth / 2 + i % 4 * 40;
                 y = i / 4 * 40;
             } else {
                 int indexOffset = i - inputSlots;
-                x = this.inventoryForm.getWidth() / 2 + centerWidth / 2 + indexOffset % 4 * 40;
+                x = inventoryForm.getWidth() / 2 + centerWidth / 2 + indexOffset % 4 * 40;
                 y = indexOffset / 4 * 40;
             }
-            this.slots[i] = this.inventoryForm.addComponent(new FormContainerProcessingRecipeSlot(
-                    this.client, slotIndex, x, y + 34, processingHelp));
+            slots[i] = inventoryForm.addComponent(new FormContainerProcessingRecipeSlot(
+                    client, container, slotIndex, x, y + 34, processingHelp));
         }
-        this.inventoryForm.addComponent(
-                new FormProcessingProgressArrow(this.inventoryForm.getWidth() / 2 - 16,
-                        38,
+        inventoryForm.addComponent(
+                new FormProcessingProgressArrow(inventoryForm.getWidth() / 2 - 16, 38,
                         container.objectEntity.getProcessingHelp()));
         flow.next(40);
     }
