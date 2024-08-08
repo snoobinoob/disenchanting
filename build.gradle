@@ -2,13 +2,14 @@ plugins {
     id 'java'
 }
 
+
 // Change the values below this to your mods values
 // To change the project name, edit the settings.gradle file
 
 project.ext.modID = "snoobinoob.disenchanting" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Disenchanting" // The display name of your mod.
-project.ext.modVersion = "4.1" // Your current builds version. Must follow the xx.xx... format.
-project.ext.gameVersion = "0.23.1" // The target game version.
+project.ext.modVersion = "4.2" // Your current builds version. Must follow the xx.xx... format.
+project.ext.gameVersion = "0.25.1" // The target game version.
 project.ext.modDescription = "Pull enchants off of items using a scroll" // Short description of what your mod is.
 project.ext.author = "Snoobinoob" // Your name
 
@@ -57,6 +58,7 @@ sourceSets.main.compileClasspath += configurations.libDepends // Adds libDepends
 def buildLocation = "build/jar"
 
 compileJava.options.encoding = "UTF-8"
+compileJava.options.compilerArgs << "-Xlint:deprecation"
 
 if (!file(gameDirectory + "/Necesse.jar").exists()) {
     throw new Exception("Could not find game install directory. Make sure it is correct in build.gradle file.")

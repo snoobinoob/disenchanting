@@ -1,6 +1,8 @@
 package disenchanting.disenchanter;
 
 import necesse.engine.util.GameMath;
+import necesse.engine.util.GameBlackboard;
+import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.forms.presets.containerComponent.object.ProcessingHelp;
 import necesse.gfx.gameTooltips.GameTooltips;
 import necesse.gfx.gameTooltips.ListGameTooltips;
@@ -18,11 +20,11 @@ public class DisenchantingHelp extends ProcessingHelp {
     }
 
     @Override
-    public GameTooltips getCurrentRecipeTooltip() {
+    public GameTooltips getCurrentRecipeTooltip(PlayerMob paramPlayerMob) {
         if (!objectEntity.isProcessing())
             return null;
         ListGameTooltips tooltips = new ListGameTooltips();
-        tooltips.add(objectEntity.getOutputItem().getTooltip(null));
+        tooltips.add(objectEntity.getOutputItem().getTooltip(paramPlayerMob, new GameBlackboard()));
 
         return tooltips;
     }
@@ -48,7 +50,7 @@ public class DisenchantingHelp extends ProcessingHelp {
     }
 
     @Override
-    public GameTooltips getTooltip(int slot) {
+    public GameTooltips getTooltip(int slot, PlayerMob paramPlayerMob) {
         return null;
     }
 

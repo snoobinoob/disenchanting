@@ -94,7 +94,7 @@ public class DisenchanterObject extends GameObject {
 
     @Override
     public void interact(Level level, int x, int y, PlayerMob player) {
-        if (level.isServerLevel())
+        if (level.isServer())
             OEInventoryContainer.openAndSendContainer(Disenchanting.DISENCHANTER_CONTAINER,
                     player.getServerClient(), level, x, y);
     }
