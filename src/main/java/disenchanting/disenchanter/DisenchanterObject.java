@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.util.List;
 import disenchanting.Disenchanting;
 import necesse.engine.localization.Localization;
-import necesse.engine.tickManager.TickManager;
+import necesse.engine.gameLoop.tickManager.TickManager;
 import necesse.entity.mobs.PlayerMob;
 import necesse.entity.objectEntity.ObjectEntity;
 import necesse.gfx.camera.GameCamera;
