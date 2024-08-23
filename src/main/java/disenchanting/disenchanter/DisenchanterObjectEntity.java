@@ -10,16 +10,15 @@ import necesse.inventory.item.miscItem.EnchantingScrollItem;
 import necesse.level.maps.Level;
 
 public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
-    DisenchantingHelp help;
-    Enchantable<ItemEnchantment> gear;
-    EnchantingScrollItem scroll;
+    private final DisenchantingHelp help;
+    private Enchantable<ItemEnchantment> gear;
+    private EnchantingScrollItem scroll;
 
     public DisenchanterObjectEntity(Level level, int x, int y) {
         super(level, "disenchanter", x, y, 2, 1);
         help = new DisenchantingHelp(this);
 
-        inventory.filter = ((slot, item) -> (item == null) ? true
-                : (slot < inputSlots ? isValidInputItem(slot, item) : false));
+        inventory.filter = (slot, item) -> item == null || (slot < inputSlots && isValidInputItem(slot, item));
     }
 
     @Override
@@ -43,7 +42,6 @@ public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
             InventoryItem item = inventory.getItem(slot);
             scroll = item == null ? null : (EnchantingScrollItem) item.item;
         }
-        // updateProcessing = true;
     }
 
     @Override
@@ -52,28 +50,39 @@ public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
     }
 
     @SuppressWarnings("unchecked")
+    public String validateSlotForItem(int slot, InventoryItem item) {
+        if (slot >= inputSlots || item == null) {
+            return null;
+        }
+        if (slot == 0) {
+            if (!item.item.isEnchantable(item)) {
+                return "disenchanting.notEnchantable";
+            }
+            if (scroll == null) {
+                return null;
+            }
+            Enchantable<ItemEnchantment> enchantable = (Enchantable<ItemEnchantment>) item.item;
+            ItemEnchantment enchantment = scroll.getEnchantment(inventory.getItem(1));
+            if (!enchantable.isValidEnchantment(item, enchantment)) {
+                return "disenchanting.unsupportedItem";
+            }
+        } else if (slot == 1) {
+            if (!(item.item instanceof EnchantingScrollItem)) {
+                return "disenchanting.mustBeScroll";
+            }
+            if (gear == null) {
+                return null;
+            }
+            EnchantingScrollItem scrollItem = (EnchantingScrollItem) item.item;
+            if (!gear.isValidEnchantment(inventory.getItem(0), scrollItem.getEnchantment(item))) {
+                return "disenchanting.unsupportedEnchant";
+            }
+        }
+        return null;
+    }
+
     public boolean isValidInputItem(int slot, InventoryItem item) {
-        if (item.item.isEnchantable(item)) {
-            if (slot != 0 || gear != null || item.getGndData().getItem("enchantment") == null)
-                return false;
-            if (scroll != null) {
-                Enchantable<ItemEnchantment> enchantable = (Enchantable<ItemEnchantment>) item.item;
-                ItemEnchantment enchantment = scroll.getEnchantment(inventory.getItem(1));
-                return enchantable.isValidEnchantment(item, enchantment);
-            }
-            return true;
-        }
-        if (item.item instanceof EnchantingScrollItem) {
-            if (slot != 1 || scroll != null)
-                return false;
-            if (gear != null) {
-                EnchantingScrollItem scrollItem = (EnchantingScrollItem) item.item;
-                return gear.isValidEnchantment(inventory.getItem(0),
-                        scrollItem.getEnchantment(item));
-            }
-            return true;
-        }
-        return false;
+        return validateSlotForItem(slot, item) == null;
     }
 
     public InventoryItem getOutputItem() {

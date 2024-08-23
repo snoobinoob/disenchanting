@@ -1,14 +1,18 @@
 package disenchanting.disenchanter;
 
+import necesse.engine.localization.Localization;
 import necesse.engine.util.GameMath;
+import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.forms.presets.containerComponent.object.ProcessingHelp;
 import necesse.gfx.gameTooltips.GameTooltips;
 import necesse.gfx.gameTooltips.ListGameTooltips;
+import necesse.gfx.gameTooltips.StringTooltips;
 import necesse.inventory.InventoryItem;
 
 public class DisenchantingHelp extends ProcessingHelp {
-    private DisenchanterObjectEntity objectEntity;
-    private InventoryItem ghostGearItems[] = new InventoryItem[] {
+    private final DisenchanterObjectEntity objectEntity;
+
+    private final InventoryItem[] ghostGearItems = new InventoryItem[]{
             new InventoryItem("ironchestplate"), new InventoryItem("ironpickaxe"),
             new InventoryItem("ironsword"), new InventoryItem("ironbow"),
             new InventoryItem("woodstaff"), new InventoryItem("spiderstaff")};
@@ -18,26 +22,27 @@ public class DisenchantingHelp extends ProcessingHelp {
     }
 
     @Override
-    public GameTooltips getCurrentRecipeTooltip() {
+    public GameTooltips getCurrentRecipeTooltip(PlayerMob player) {
         if (!objectEntity.isProcessing())
             return null;
         ListGameTooltips tooltips = new ListGameTooltips();
-        tooltips.add(objectEntity.getOutputItem().getTooltip(null));
+        tooltips.add(objectEntity.getOutputItem().getTooltip(player, null));
 
         return tooltips;
     }
 
     @Override
     public InventoryItem getGhostItem(int slot) {
-        if (slot == 0) {
-            long currTime = objectEntity.getLevel().getWorldEntity().getTime();
-            int index = GameMath.floor(currTime / 2000) % 6;
-            return ghostGearItems[index];
+        switch (slot) {
+            case 0:
+                long currTime = objectEntity.getLevel().getWorldEntity().getTime();
+                int index = GameMath.floor(currTime / 2000f) % 6;
+                return ghostGearItems[index];
+            case 1:
+                return new InventoryItem("enchantingscroll");
+            case 2:
+                return isProcessing() ? objectEntity.inventory.getItem(0) : null;
         }
-        if (slot == 1)
-            return new InventoryItem("enchantingscroll");
-        if (slot == 2 && isProcessing())
-            return new InventoryItem("enchantingscroll");
 
         return null;
     }
@@ -48,8 +53,9 @@ public class DisenchantingHelp extends ProcessingHelp {
     }
 
     @Override
-    public GameTooltips getTooltip(int slot) {
-        return null;
+    public GameTooltips getTooltip(int slot, PlayerMob player) {
+        String errorCode = objectEntity.validateSlotForItem(slot, player.getDraggingItem());
+        return errorCode == null ? null : new StringTooltips(Localization.translate("tooltip", errorCode));
     }
 
     @Override
@@ -61,5 +67,4 @@ public class DisenchantingHelp extends ProcessingHelp {
     public boolean needsFuel() {
         return false;
     }
-
 }

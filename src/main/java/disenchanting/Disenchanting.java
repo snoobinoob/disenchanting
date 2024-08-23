@@ -23,11 +23,11 @@ public class Disenchanting {
 
 
         DISENCHANTER_CONTAINER = ContainerRegistry.registerOEContainer(
-                (client, uniqueSeed, oe, content) -> new DisenchanterContainerForm(client,
-                        new DisenchanterContainer(client.getClient(), uniqueSeed, oe,
-                                new PacketReader(content))),
-                (client, uniqueSeed, oe, content, serverObj) -> new DisenchanterContainer(client,
-                        uniqueSeed, oe, new PacketReader(content)));
+            (client, uniqueSeed, oe, content) -> new DisenchanterContainerForm(client,
+                new DisenchanterContainer(client.getClient(), uniqueSeed, oe,
+                    new PacketReader(content))),
+            (client, uniqueSeed, oe, content, serverObj) -> new DisenchanterContainer(client,
+                uniqueSeed, oe, new PacketReader(content)));
     }
 
     public ModSettings initSettings() {
@@ -37,9 +37,16 @@ public class Disenchanting {
 
     public void postInit() {
         Recipes.registerModRecipe(
-                new Recipe("disenchanter", 1, RecipeTechRegistry.WORKSTATION,
-                        new Ingredient[] {new Ingredient("anylog", 10),
-                                new Ingredient("anystone", 10), new Ingredient("voidshard", 2),})
-                                        .showAfter("alchemytable"));
+            new Recipe(
+                "disenchanter",
+                1,
+                RecipeTechRegistry.WORKSTATION,
+                new Ingredient[]{
+                    new Ingredient("anylog", 10),
+                    new Ingredient("anystone", 10),
+                    new Ingredient("voidshard", 2),
+                }
+            ).showAfter("alchemytable")
+        );
     }
 }

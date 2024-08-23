@@ -1,2 +1,7 @@
 [object]
 disenchanter=Disenchanter
+[tooltip]
+disenchanting.notEnchantable=Item cannot be enchanted
+disenchanting.unsupportedItem=Current enchantment cannot be placed on this item
+disenchanting.mustBeScroll=This item is not an enchanting scroll
+disenchanting.unsupportedEnchant=Current item does not support this enchantment
