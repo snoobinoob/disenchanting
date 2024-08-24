@@ -13,9 +13,9 @@ public class DisenchantingHelp extends ProcessingHelp {
     private final DisenchanterObjectEntity objectEntity;
 
     private final InventoryItem[] ghostGearItems = new InventoryItem[]{
-            new InventoryItem("ironchestplate"), new InventoryItem("ironpickaxe"),
-            new InventoryItem("ironsword"), new InventoryItem("ironbow"),
-            new InventoryItem("woodstaff"), new InventoryItem("spiderstaff")};
+        new InventoryItem("ironchestplate"), new InventoryItem("ironpickaxe"),
+        new InventoryItem("ironsword"), new InventoryItem("ironbow"),
+        new InventoryItem("woodstaff"), new InventoryItem("spiderstaff")};
 
     public DisenchantingHelp(DisenchanterObjectEntity objectEntity) {
         this.objectEntity = objectEntity;
@@ -41,7 +41,7 @@ public class DisenchantingHelp extends ProcessingHelp {
             case 1:
                 return new InventoryItem("enchantingscroll");
             case 2:
-                return isProcessing() ? objectEntity.inventory.getItem(0) : null;
+                return isProcessing() ? new InventoryItem("enchantingscroll") : null;
         }
 
         return null;
