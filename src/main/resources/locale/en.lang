@@ -1,7 +1,9 @@
 [object]
 disenchanter=Disenchanter
+[itemtooltip]
+disenchanter=Extracts item enchants to scrolls
 [tooltip]
-disenchanting.notEnchantable=Item cannot be enchanted
-disenchanting.unsupportedItem=Current enchantment cannot be placed on this item
-disenchanting.mustBeScroll=This item is not an enchanting scroll
-disenchanting.unsupportedEnchant=Current item does not support this enchantment
+disenchanting.notEnchanted=Item is not enchanted
+disenchanting.invalidItem=Item is incompatible with the provided scroll
+disenchanting.mustBeScroll=Item is not an enchanting scroll
+disenchanting.invalidScroll=Scroll is incompatible with the provided item

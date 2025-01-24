@@ -28,6 +28,9 @@ public class DisenchanterObject extends GameObject {
     public DisenchanterObject() {
         super(new Rectangle(32, 32));
         toolType = ToolType.ALL;
+        setItemCategory("objects", "craftingstations");
+        setCraftingCategory("craftingstations");
+        canReplaceCategories.add("workstation");
     }
 
     @Override
@@ -45,9 +48,9 @@ public class DisenchanterObject extends GameObject {
     }
 
     @Override
-    public List<ObjectHoverHitbox> getHoverHitboxes(Level level, int tileX, int tileY) {
-        List<ObjectHoverHitbox> list = super.getHoverHitboxes(level, tileX, tileY);
-        list.add(new ObjectHoverHitbox(tileX, tileY, 0, -16, 32, 16));
+    public List<ObjectHoverHitbox> getHoverHitboxes(Level level, int layerID, int tileX, int tileY) {
+        List<ObjectHoverHitbox> list = super.getHoverHitboxes(level, layerID, tileX, tileY);
+        list.add(new ObjectHoverHitbox(layerID, tileX, tileY, 0, -16, 32, 16));
         return list;
     }
 
@@ -60,7 +63,7 @@ public class DisenchanterObject extends GameObject {
         int drawY = camera.getTileDrawY(tileY);
         int rotation = level.getObjectRotation(tileX, tileY) % 4;
         final TextureDrawOptions options = this.texture.initDraw().sprite(rotation % 4, 0, 32, this.texture.getHeight())
-                .light(light).pos(drawX, drawY - this.texture.getHeight() + 32);
+            .light(light).pos(drawX, drawY - this.texture.getHeight() + 32);
         list.add(new LevelSortedDrawable(this, tileX, tileY) {
             @Override
             public int getSortY() {
@@ -80,7 +83,7 @@ public class DisenchanterObject extends GameObject {
         int drawX = camera.getTileDrawX(tileX);
         int drawY = camera.getTileDrawY(tileY);
         this.texture.initDraw().sprite(rotation % 4, 0, 32, this.texture.getHeight()).alpha(alpha)
-                .draw(drawX, drawY - this.texture.getHeight() + 32);
+            .draw(drawX, drawY - this.texture.getHeight() + 32);
     }
 
     @Override
@@ -97,7 +100,7 @@ public class DisenchanterObject extends GameObject {
     public void interact(Level level, int x, int y, PlayerMob player) {
         if (level.isServer())
             OEInventoryContainer.openAndSendContainer(Disenchanting.DISENCHANTER_CONTAINER,
-                    player.getServerClient(), level, x, y);
+                player.getServerClient(), level, x, y);
     }
 
     @Override
@@ -108,7 +111,7 @@ public class DisenchanterObject extends GameObject {
     @Override
     public ListGameTooltips getItemTooltips(InventoryItem item, PlayerMob perspective) {
         ListGameTooltips tooltips = super.getItemTooltips(item, perspective);
-        tooltips.add(Localization.translate("itemtooltip", "displaytip"));
+        tooltips.add(Localization.translate("itemtooltip", "disenchanter"));
         return tooltips;
     }
 }

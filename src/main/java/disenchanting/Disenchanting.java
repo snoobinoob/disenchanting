@@ -46,7 +46,7 @@ public class Disenchanting {
                     new Ingredient("anystone", 10),
                     new Ingredient("voidshard", 2),
                 }
-            ).showAfter("alchemytable")
+            ).showAfter("workstation")
         );
     }
 }
