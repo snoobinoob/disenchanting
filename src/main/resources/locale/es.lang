@@ -1,0 +1,9 @@
+[object]
+disenchanter=Desencantador
+[itemtooltip]
+disenchanter=Extrae el encantamiento de los ítems en pergaminos
+[tooltip]
+disenchanting.notEnchanted=El ítem no esta encantado
+disenchanting.invalidItem=El ítem no es compatible con el pergamino seleccionado
+disenchanting.mustBeScroll=Esto no es un pergamino de encantamientos
+disenchanting.invalidScroll=El pergamino no es compatible con el ítem seleccionado
