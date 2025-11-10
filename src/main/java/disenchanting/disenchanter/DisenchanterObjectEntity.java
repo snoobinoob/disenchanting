@@ -67,7 +67,7 @@ public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
                 return null;
             }
             ItemEnchantment enchantment = scroll.getEnchantment(inventory.getItem(1));
-            if (!enchantable.isValidEnchantment(item, enchantment)) {
+            if (Disenchanting.settings.requireMatchingEnchant && !enchantable.isValidEnchantment(item, enchantment)) {
                 return "disenchanting.invalidItem";
             }
         } else if (slot == 1) {
@@ -78,7 +78,7 @@ public class DisenchanterObjectEntity extends ProcessingInventoryObjectEntity {
                 return null;
             }
             EnchantingScrollItem scrollItem = (EnchantingScrollItem) item.item;
-            if (!gear.isValidEnchantment(inventory.getItem(0), scrollItem.getEnchantment(item))) {
+            if (Disenchanting.settings.requireMatchingEnchant && !gear.isValidEnchantment(inventory.getItem(0), scrollItem.getEnchantment(item))) {
                 return "disenchanting.invalidScroll";
             }
         }

@@ -9,7 +9,7 @@ public class DisenchanterContainer extends OEInventoryContainer {
     public DisenchanterObjectEntity objectEntity;
 
     public DisenchanterContainer(NetworkClient client, int uniqueSeed, ObjectEntity oe, PacketReader reader) {
-        super(client, uniqueSeed, (DisenchanterObjectEntity) oe, reader);
+        super(client, uniqueSeed, null, (DisenchanterObjectEntity) oe, reader);
 
         objectEntity = (DisenchanterObjectEntity) oe;
     }

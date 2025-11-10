@@ -6,17 +6,20 @@ import necesse.engine.save.SaveData;
 
 public class Settings extends ModSettings {
     public int processTime = 5000;
+    public boolean requireMatchingEnchant = false;
 
     @Override
     public void addSaveData(SaveData save) {
         save.addInt("processtime", processTime);
+        save.addBoolean("requirematchingenchant", requireMatchingEnchant);
     }
 
     @Override
     public void applyLoadData(LoadData save) {
         if (save == null)
             return;
-        processTime = save.getInt("processtime");
+        processTime = save.getInt("processtime", 5000);
+        requireMatchingEnchant = save.getBoolean("requirematchingenchant", false);
     }
 
 
