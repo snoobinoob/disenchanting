@@ -1,0 +1,15 @@
+# Traduction réalisée par Caranud (https://steamcommunity.com/id/Caranud/)
+# Version de mod : 8.0 [10/11/25]
+# Version de jeu : 1.0.2
+# Date de la dernière traduction : 16/11/2025
+# Note de Caranud : n’hésitez pas à reprendre cette traduction si je ne suis plus actif et disponible depuis un moment ! :) Je suis également sur le serveur Discord (https://discord.com/invite/HSvuUuA).
+
+[object]
+disenchanter=Table de désenchantement
+[itemtooltip]
+disenchanter=Permet d’extraire les enchantements d’objets et les réécrire sur des parchemins.
+[tooltip]
+disenchanting.notEnchanted=L’objet n’est pas enchanté !
+disenchanting.invalidItem=L’objet n’est pas compatible avec le parchemin donné.
+disenchanting.mustBeScroll=L’ojet n’est pas un parchemin d’enchantement.
+disenchanting.invalidScroll=Le parchemin est incompatible avec l’objet donné.
